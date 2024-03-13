@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SkalProj_Datastrukturer_Minne
+﻿namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
@@ -57,6 +55,26 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+        /* Slutsatser från test med ExamineList:
+         * Svar på fråga 2:
+         * Listans kapacitet ökar när det är nödvändigt för att lägga till vad som ska läggas till.
+         * 
+         * Svar på fråga 3:
+         * Kapaciteten verkar fördubblas varje gång.
+         * 
+         * Svar på fråga 4:
+         * Jag föreställer mig att det finns någon slags kostnad förknippad med ökningsprocessen själv som man försöker undvika genom att inte utöka kapaciteten för ofta. Om det faktiskt rör sig om en underliggande array måste rimligen en ny array skapas, och materialet kopieras över från den gamla, vilket skulle kunna ta en stund.
+         * 
+         * Svar på fråga 5:
+         * Nej, kapaciteten minskas inte automatiskt när element tas bort. (Men jag ser att det finns gränssnittsfunktioner för det.)
+         * 
+         * Svar på fråga 6:
+         * Frånsett kostnaden för att sätta upp en ny metodinstans för varje interaktion med listan (som jag verkligen hoppas är försumbar under något så när normala förhållanden) ser jag inga fördelar med en array framför en lista med en explicit satt Capacity.
+         * Om vi däremot ska jämföra en array med en lista som tillåtes att sätta sin kapacitet efter bästa förstånd så erbjuder ju arrayen den fördelen att man bara behöver konstruera arrayen en gång, förutsatt att man faktiskt vet tillräckligt mycket om vad man ska ha arrayen till för att sätta dess storlek över huvud taget, vilket ju är en förutsättning för att alls kunna använda en array.
+         * Så, fördelarna överväger när antalet element i listan/arrayen blir stort.
+         * 
+         * Men, som sagt, kapaciteten kan sättas explicit.
+        */
         /// <summary>
         /// Examines the datastructure List
         /// </summary>
@@ -72,12 +90,33 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            List<string> theList = new List<string>();
+            bool done = false;
+            do
+            {
+                string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+                if (string.IsNullOrEmpty(input))
+                    done = true;
+                else
+                {
+                    char nav = input[0];
+                    string value = input.Substring(1);
+                    switch (nav)
+                    {
+                        case '+':
+                            theList.Add(value);
+                            break;
+                        case '-':
+                            theList.Remove(value);
+                            break;
+                        default:
+                            Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
+                            break;
+                    }
+                    Console.WriteLine($"Kapacitet: {theList.Capacity}{Environment.NewLine}Innehåll: {theList.Count}");
+                }
+            } while (!done);
 
-            //switch(nav){...}
         }
 
         /// <summary>

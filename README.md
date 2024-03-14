@@ -16,4 +16,4 @@ int är en värdetyp, så när x och y är int så innebär "y = x" att heltalsv
 MyInt är däremot en referenstyp, så när x och y är MyInt så är "y = x" en instruktion avseende referenserna själva, närmare bestämt en instruktion att kopiera referensen i x till y, men "y.MyValue = 4" är en instruktion avseende referensen y:s referent, som också i detta läge är referensen x:s referent, så värdet av uttrycket "x.MyValue" ändras.
 
 ### Kommentar
-Jag visste inte att "new int()" gick. Är det någonsin en bra idé?
+Jag fick inte fullt klart för mig att CS0165-felens existens innebär att default-värden för värdetyper i praktiken bara är tillämpliga på objektfält, och att lokala variabler i metoder faktiskt måste instantieras explicit, förrän jag försökte begripa varför kompilatorn över huvud taget accepterade "new int()".

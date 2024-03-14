@@ -35,3 +35,21 @@ f.      Greta blir expedierad och lämnar kön
 [Stina]  
 g.      Olle ställer sig i kön  
 [Stina, Olle]  
+
+## Pappersdelen av övning 3
+a.      ICA öppnar och kön till kassan är tom  
+[]  
+b.      Kalle ställer sig i kön  
+[Kalle]  
+c.      Greta ställer sig i kön  
+[Kalle, Greta]  
+d.      Greta blir expedierad och lämnar kön  
+[Kalle]  
+e.      Stina ställer sig i kön  
+[Kalle, Stina]  
+f.      Stina blir expedierad och lämnar kön  
+[Kalle]  
+g.      Olle ställer sig i kön  
+[Kalle, Olle]  
+
+Vi konstaterar att detta arbetssätt leder till mer ojämna väntetider än de yttre omständigheterna kräver.

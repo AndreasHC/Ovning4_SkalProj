@@ -1,4 +1,6 @@
-﻿namespace SkalProj_Datastrukturer_Minne
+﻿using System.Text;
+
+namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
@@ -14,7 +16,7 @@
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
-                    + "\n3. Examine a Stack"
+                    + "\n3. Reverse a string"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
@@ -36,7 +38,7 @@
                         ExamineQueue();
                         break;
                     case '3':
-                        ExamineStack();
+                        ReverseString();
                         break;
                     case '4':
                         CheckParanthesis();
@@ -168,16 +170,35 @@
 
         }
 
+
+        //Instruktionerna i den här metodkroppen verkar inte svara mot någonting i pdf:en.
+
+        ///// <summary>
+        ///// Examines the datastructure Stack
+        ///// </summary>
+        //static void ExamineStack()
+        //{
+        //    /*
+        //     * Loop this method until the user inputs something to exit to main menue.
+        //     * Create a switch with cases to push or pop items
+        //     * Make sure to look at the stack after pushing and and poping to see how it behaves
+        //    */
+        //}
+
         /// <summary>
-        /// Examines the datastructure Stack
+        /// Reverses a user-provided string.
         /// </summary>
-        static void ExamineStack()
+        static void ReverseString()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+            Console.WriteLine("Enter a string.");
+            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            Stack<char> stack = new Stack<char>();
+            foreach (char c in input)
+                stack.Push(c);
+            StringBuilder stringBuilder = new StringBuilder();
+            while (stack.Count > 0)
+                stringBuilder.Append(stack.Pop());
+            Console.WriteLine(stringBuilder.ToString());
         }
 
         static void CheckParanthesis()

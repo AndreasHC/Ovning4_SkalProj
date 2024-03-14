@@ -2,13 +2,15 @@
 
 Terminologikommentar: Påståendet "En pointer skiljer sig från reference types, i det avseendet att när något är av en reference type, så kommer vi åt det via en pointer" känns inte som en bra början på en terminologi som gör vederbörlig åtskillnad på referenser, referensernas referenter, pekare av det slag som beskrivs i https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/pointer-related-operators och pekarnas referenter.
 
+Terminologikommentar 2: Säger man "metodinstanser"? Det känns absolut nödvändigt att tala om "metodinstanser" i svaren på de här frågorna.
+
 ## Svar på fråga 1
 En stack innehåller de data (av värdetyp, och referenser, men inte referensernas referenter) som hör till de pågående metodinstanserna i den tråd som stacken är förknippad med. Varje gång en ny metodinstans påbörjas travas ett nytt minnesavsnitt för den metodinstansen på stackens topp, och när metodinstansen har avslutats behandlas det minnet som tillgängligt för en ny metodinstans.
 
-Heapen innehåller objektinstanser. Det finns ingen väldefinierad ordning, materialet läggs till där det finns utrymme, och tas bort när det befinns vara onödigt.
+Heapen innehåller referensernas referenter, såsom arrayer och objektinstanser. Det finns ingen väldefinierad ordning, materialet läggs till där det finns utrymme, och tas bort när det befinns vara onödigt. Referenser och material av värdetyp uppträder normalt bara på heapen som en del av någonting större.
 
 ## Svar på fråga 2
-Värdetyper kan existera inom en metodinstans, eller inom en objektinstans. Referenstyper kan bara existera på heapen. Metodinstanser och objektinstanser kan bara ha referenser till dem.
+En variabel eller ett fält av värdetyp svarar mot ett minnesutrymme inom det utrymme som är avsatt för till exempel en metodinstans eller objektinstans, och detta utrymme innehåller allt det data som är förknippat med variabeln. En variabel eller ett fält av referenstyp har en referent utanför det utrymme som är det omgivande kontextets utrymme, och det material som finns innanför detta kontext är bara det som är nödvändigt för att hitta denna referent, medan huvuddelen av det data som är förknippat med variabeln/fältet återfinns i referenten.
 
 ## Svar på fråga 3
 int är en värdetyp, så när x och y är int så innebär "y = x" att heltalsvärdet lagrat i x kopieras till y, och att vad som vidare händer med y inte påverkar x.

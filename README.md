@@ -53,3 +53,17 @@ g.      Olle ställer sig i kön
 [Kalle, Olle]  
 
 Vi konstaterar att detta arbetssätt leder till mer ojämna väntetider än de yttre omständigheterna kräver.
+
+## Pappersdelen av övning 4
+Processen bör vara:  
+Strängen gås igenom från vänster till höger.  
+Chars som inte är parenteser ignoreras.  
+Öppningsparenteser sparas undan för att jämföras med kommande slutparenteser.  
+Slutparenteser jämförs med den senaste omatchade öppningsparentesen för att se om de bildar ett giltigt par.
+Ett ogiltigt par innebär att strängen inte är välformad.  
+En slutparentes när inga omatchade öppningsparenteser är tillgängliga innebär att strängen inte är välformad.  
+En kvarvarande omatchad öppningsparentes när strängen har tagit slut innebär att strängen inte är välformad.  
+Om inget av dessa tecken påträffas innebär det att strängen är välformad.  
+
+Det som behöver sparas för att kunna genmföra denna process är omatchade öppningsparenteser, den av dem vi behöver ha tillgång till är den senast påträffade, och vi kommer inte att behöva någon av dem mer än en gång.  
+Det här kan alltså göras med en stack.  

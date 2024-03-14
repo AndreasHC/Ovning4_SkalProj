@@ -1,9 +1,21 @@
-﻿using System.Text;
+﻿using System.Collections.Immutable;
+using System.Text;
 
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
+        private static readonly ImmutableDictionary<char, char> counterparts =
+            (new Dictionary<char, char>
+            {   { ')', '(' },
+                { ']', '[' },
+                { '}', '{' }
+            }).ToImmutableDictionary();
+        private static ImmutableDictionary<char, char> Counterparts
+        {
+            get { return counterparts; }
+        }
+
         /// <summary>
         /// The main method, vill handle the menues for the program
         /// </summary>
@@ -203,11 +215,35 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CheckParanthesis()
         {
-            /*
-             * Use this method to check if the paranthesis in a string is Correct or incorrect.
-             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
-             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
-             */
+            Console.WriteLine("Enter a string.");
+            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            Stack<char> stack = new Stack<char>();
+            bool mismatchFound = false;
+            foreach (char c in input)
+            {
+                switch (c)
+                {
+                    case '{':
+                    case '[':
+                    case '(':
+                        stack.Push(c);
+                        break;
+                    case ')':
+                    case ']':
+                    case '}':
+                        if (stack.Count == 0)
+                            mismatchFound = true;
+                        if (stack.Pop() != Counterparts[c])
+                            mismatchFound = true;
+                        break;
+                    default:
+                        break;
+                }
+                if (mismatchFound)
+                    break;
+            }
+            mismatchFound |= stack.Count != 0;
+            Console.WriteLine(!mismatchFound);
 
         }
 

@@ -119,6 +119,10 @@
 
         }
 
+
+        /* Slutsatser från test med ExamineQueue:
+         * Resultaten överensstämmer med förutsägelserna i README. 
+         */
         /// <summary>
         /// Examines the datastructure Queue
         /// </summary>
@@ -129,6 +133,39 @@
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Queue<string> theQueue = new Queue<string>();
+            bool done = false;
+            do
+            {
+                string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+                if (string.IsNullOrEmpty(input))
+                    done = true;
+                else
+                {
+                    char nav = input[0];
+                    string value = input.Substring(1);
+                    switch (nav)
+                    {
+                        case '+':
+                            theQueue.Enqueue(value);
+                            break;
+                        case '-':
+                            if (value.Length > 0)
+                                Console.WriteLine("Ignoring everything after \"-\"");
+                            string? removed;
+                            if (theQueue.TryDequeue(out removed))
+                                Console.WriteLine(removed);
+                            else
+                                Console.WriteLine("Nothing to dequeue");
+                            break;
+                        default:
+                            Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
+                            break;
+                    }
+                    Console.WriteLine($"Köns längd: {theQueue.Count}");
+                }
+            } while (!done);
+
         }
 
         /// <summary>

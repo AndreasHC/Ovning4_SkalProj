@@ -19,3 +19,19 @@ MyInt är däremot en referenstyp, så när x och y är MyInt så är "y = x" en
 
 ### Kommentar
 Jag fick inte fullt klart för mig att CS0165-felens existens innebär att default-värden för värdetyper i praktiken bara är tillämpliga på objektfält, och att lokala variabler i metoder faktiskt måste instantieras explicit, förrän jag försökte begripa varför kompilatorn över huvud taget accepterade "new int()".
+
+## Pappersdelen av övning 2
+a.      ICA öppnar och kön till kassan är tom 
+[]
+b.      Kalle ställer sig i kön 
+[Kalle]
+c.      Greta ställer sig i kön 
+[Kalle, Greta]
+d.      Kalle blir expedierad och lämnar kön 
+[Greta]
+e.      Stina ställer sig i kön 
+[Greta, Stina]
+f.      Greta blir expedierad och lämnar kön 
+[Stina]
+g.      Olle ställer sig i kön
+[Stina, Olle]

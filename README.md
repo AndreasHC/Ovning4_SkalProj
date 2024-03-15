@@ -67,3 +67,136 @@ Om inget av dessa tecken påträffas innebär det att strängen är välformad.
 
 Det som behöver sparas för att kunna genmföra denna process är omatchade öppningsparenteser, den av dem vi behöver ha tillgång till är den senast påträffade, och vi kommer inte att behöva någon av dem mer än en gång.  
 Det här kan alltså göras med en stack.  
+
+## Pappersdelen av övning 5
+### Förlopp för anropet RecursiveOdd(1):
+````
+-------------------------------
+| Metodinstans RecursiveOdd(1)|
+-------------------------------
+
+------------
+|Resultat 1|
+------------
+````
+### Förlopp för anropet RecursiveOdd(3)
+````
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(1)|
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+
+-------------------------------
+| Resultat 1                  |
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+
+-------------------------------
+| Resultat 3                  |
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+
+------------
+|Resultat 5|
+------------
+````
+
+### Förlopp för anropet RecursiveOdd(5)
+````
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Metodinstans RecursiveOdd(1)|
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Resultat 1                  |
+-------------------------------
+| Metodinstans RecursiveOdd(2)|
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Resultat 3                  |
+-------------------------------
+| Metodinstans RecursiveOdd(3)|
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Resultat 5                  |
+-------------------------------
+| Metodinstans RecursiveOdd(4)|
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+-------------------------------
+| Resultat 7                  |
+-------------------------------
+| Metodinstans RecursiveOdd(5)|
+-------------------------------
+
+------------
+|Resultat 9|
+------------
+````

@@ -25,11 +25,13 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 5, 6, 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Reverse a string"
                     + "\n4. CheckParenthesis"
+                    + "\n5. Numbered even number"
+                    + "\n6. Numbered Fibonacci number"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -55,6 +57,12 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
+                    case '5':
+                        EvenNumber();
+                        break;
+                    case '6':
+                        FibonacciNumber();
+                        break;
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -63,7 +71,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
+                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4, 5, 6)");
                         break;
                 }
             }
@@ -247,6 +255,51 @@ namespace SkalProj_Datastrukturer_Minne
 
         }
 
+        static void EvenNumber()
+        {
+            Console.WriteLine("Mata in ett tal");
+            int inputNumber;
+            if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
+                Console.WriteLine("Det där var inte ett tal");
+            else if (inputNumber <= 0)
+                Console.WriteLine("Det talet kan inte hanteras");
+            else
+            {
+                Console.WriteLine($"{RecursiveEven(inputNumber)}");
+            }
+
+        }
+
+        static int RecursiveEven(int n)
+        {
+            if (n == 1)
+                return 0;
+            return RecursiveEven(n - 1) + 2;
+        }
+
+        static void FibonacciNumber()
+        {
+            Console.WriteLine("Mata in ett tal");
+            int inputNumber;
+            if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
+                Console.WriteLine("Det där var inte ett tal");
+            else if (inputNumber <= 0)
+                Console.WriteLine("Det talet kan inte hanteras");
+            else
+            {
+                Console.WriteLine($"{RecursiveFibonacci(inputNumber)}");
+            }
+
+        }
+
+        static int RecursiveFibonacci(int n)
+        {
+            if (n == 1)
+                return 0;
+            if (n == 2)
+                return 1;
+            return RecursiveFibonacci(n - 1) + RecursiveFibonacci(n - 2);
+        }
     }
 }
 

@@ -265,7 +265,7 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Det talet kan inte hanteras");
             else
             {
-                Console.WriteLine($"{RecursiveEven(inputNumber)}");
+                Console.WriteLine($"{IterativeEven(inputNumber)}");
             }
 
         }
@@ -275,6 +275,14 @@ namespace SkalProj_Datastrukturer_Minne
             if (n == 1)
                 return 0;
             return RecursiveEven(n - 1) + 2;
+        }
+
+        static int IterativeEven(int n)
+        {
+            int result = 0;
+            for (int i = 0; i < n - 1; i++)
+                result += 2;
+            return result;
         }
 
         static void FibonacciNumber()
@@ -287,7 +295,7 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Det talet kan inte hanteras");
             else
             {
-                Console.WriteLine($"{RecursiveFibonacci(inputNumber)}");
+                Console.WriteLine($"{IterativeFibonacci(inputNumber)}");
             }
 
         }
@@ -299,6 +307,19 @@ namespace SkalProj_Datastrukturer_Minne
             if (n == 2)
                 return 1;
             return RecursiveFibonacci(n - 1) + RecursiveFibonacci(n - 2);
+        }
+
+        static int IterativeFibonacci(int n)
+        {
+            int result = 0;
+            int previous = 1;
+            for (int i = 0; i < n - 1; i++)
+            {
+                int tmp = result;
+                result += previous;
+                previous = tmp;
+            }
+            return result;
         }
     }
 }

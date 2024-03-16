@@ -200,3 +200,153 @@ Det här kan alltså göras med en stack.
 |Resultat 9|
 ------------
 ````
+## Pappersdelen av övning 6
+### Förlopp för anropet IterativeOdd(1)
+````
+---------
+| n = 1 |
+---------
+
+--------------
+| n = 1      |
+| result = 1 |
+--------------
+
+--------------
+| n = 1      |
+| result = 1 |
+| i = 0      |
+--------------
+
+--------------
+| Resultat 1 |
+--------------
+````
+### Förlopp för anropet IterativeOdd(3)
+````
+---------
+| n = 3 |
+---------
+
+--------------
+| n = 3      |
+| result = 1 |
+--------------
+
+--------------
+| n = 3      |
+| result = 1 |
+| i = 0      |
+--------------
+
+--------------
+| n = 3      |
+| result = 3 |
+| i = 0      |
+--------------
+
+--------------
+| n = 3      |
+| result = 3 |
+| i = 1      |
+--------------
+
+--------------
+| n = 3      |
+| result = 5 |
+| i = 1      |
+--------------
+
+--------------
+| n = 3      |
+| result = 5 |
+| i = 2      |
+--------------
+
+--------------
+| n = 3      |
+| result = 5 |
+--------------
+
+--------------
+| Resultat 5 |
+--------------
+````
+### Förlopp för anropet IterativeOdd(5)
+````
+---------
+| n = 5 |
+---------
+
+--------------
+| n = 5      |
+| result = 1 |
+--------------
+
+--------------
+| n = 5      |
+| result = 1 |
+| i = 0      |
+--------------
+
+--------------
+| n = 5      |
+| result = 3 |
+| i = 0      |
+--------------
+
+--------------
+| n = 5      |
+| result = 3 |
+| i = 1      |
+--------------
+
+--------------
+| n = 5      |
+| result = 5 |
+| i = 1      |
+--------------
+
+--------------
+| n = 5      |
+| result = 5 |
+| i = 2      |
+--------------
+
+--------------
+| n = 5      |
+| result = 7 |
+| i = 2      |
+--------------
+
+--------------
+| n = 5      |
+| result = 7 |
+| i = 3      |
+--------------
+
+--------------
+| n = 5      |
+| result = 9 |
+| i = 3      |
+--------------
+
+--------------
+| n = 5      |
+| result = 9 |
+| i = 4      |
+--------------
+
+--------------
+| n = 5      |
+| result = 9 |
+--------------
+
+--------------
+| Resultat 9 |
+--------------
+````
+## Svar på fråga från övning 6
+Iteration är mer minnesvänlig. Man använder samma minne för alla steg i processen, i stället för att ansamla metodinstanser för varje steg och sedan avveckla dem.
+
+Men jag känner mig tvungen att påtala att det största problemet med naivt implementerad rekursiv beräkning av fibonacci-tal är tid. Antalet samtidigt existerande metodinstanser växer bara linjärt med input. Om nu "bara" är rätt ord.

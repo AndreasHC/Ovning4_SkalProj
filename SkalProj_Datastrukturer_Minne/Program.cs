@@ -3,6 +3,7 @@ using System.Text;
 
 namespace SkalProj_Datastrukturer_Minne
 {
+    delegate bool TryRetrieve(out string? x);
     class Program
     {
         private static readonly ImmutableDictionary<char, char> counterparts =
@@ -25,13 +26,14 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 5, 6, 0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 5, 6, 7, 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
-                    + "\n3. Reverse a string"
-                    + "\n4. CheckParenthesis"
-                    + "\n5. Numbered even number"
-                    + "\n6. Numbered Fibonacci number"
+                    + "\n3. Examine a Stack"
+                    + "\n4. Reverse a string"
+                    + "\n5. CheckParenthesis"
+                    + "\n6. Numbered even number"
+                    + "\n7. Numbered Fibonacci number"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -52,15 +54,18 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineQueue();
                         break;
                     case '3':
-                        ReverseString();
+                        ExamineStack();
                         break;
                     case '4':
-                        CheckParanthesis();
+                        ReverseString();
                         break;
                     case '5':
-                        EvenNumber();
+                        CheckParanthesis();
                         break;
                     case '6':
+                        EvenNumber();
+                        break;
+                    case '7':
                         FibonacciNumber();
                         break;
                     /*
@@ -71,7 +76,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4, 5, 6)");
+                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4, 5, 6, 7)");
                         break;
                 }
             }
@@ -159,51 +164,65 @@ namespace SkalProj_Datastrukturer_Minne
             bool done = false;
             do
             {
-                string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
-                if (string.IsNullOrEmpty(input))
-                    done = true;
-                else
-                {
-                    char nav = input[0];
-                    string value = input.Substring(1);
-                    switch (nav)
-                    {
-                        case '+':
-                            theQueue.Enqueue(value);
-                            break;
-                        case '-':
-                            if (value.Length > 0)
-                                Console.WriteLine("Ignoring everything after \"-\"");
-                            string? removed;
-                            if (theQueue.TryDequeue(out removed))
-                                Console.WriteLine(removed);
-                            else
-                                Console.WriteLine("Nothing to dequeue");
-                            break;
-                        default:
-                            Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
-                            break;
-                    }
-                    Console.WriteLine($"Köns längd: {theQueue.Count}");
-                }
+                done = ExamineSingleAccessibleObjectCollection(theQueue.Enqueue, theQueue.TryDequeue, "Nothing to dequeue", () => $"Köns längd: {theQueue.Count}", done);
             } while (!done);
 
+        }
+
+        private static bool ExamineSingleAccessibleObjectCollection(Action<string> insertMethod, TryRetrieve tryRetrieveMethod, string emptyMessage, Func<string> currentStateMessage, bool done)
+        {
+            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            if (string.IsNullOrEmpty(input))
+                done = true;
+            else
+            {
+                char nav = input[0];
+                string value = input.Substring(1);
+                switch (nav)
+                {
+                    case '+':
+                        insertMethod(value);
+                        break;
+                    case '-':
+                        if (value.Length > 0)
+                            Console.WriteLine("Ignoring everything after \"-\"");
+                        string? removed;
+                        if (tryRetrieveMethod(out removed))
+                            Console.WriteLine(removed);
+                        else
+                            Console.WriteLine(emptyMessage);
+                        break;
+                    default:
+                        Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
+                        break;
+                }
+                Console.WriteLine(currentStateMessage());
+            }
+
+            return done;
         }
 
 
         //Instruktionerna i den här metodkroppen verkar inte svara mot någonting i pdf:en.
 
-        ///// <summary>
-        ///// Examines the datastructure Stack
-        ///// </summary>
-        //static void ExamineStack()
-        //{
-        //    /*
-        //     * Loop this method until the user inputs something to exit to main menue.
-        //     * Create a switch with cases to push or pop items
-        //     * Make sure to look at the stack after pushing and and poping to see how it behaves
-        //    */
-        //}
+        /// <summary>
+        /// Examines the datastructure Stack
+        /// </summary>
+        static void ExamineStack()
+        {
+            /*
+             * Loop this method until the user inputs something to exit to main menue.
+             * Create a switch with cases to push or pop items
+             * Make sure to look at the stack after pushing and and poping to see how it behaves
+            */
+            Stack<string> theStack = new Stack<string>();
+            bool done = false;
+            do
+            {
+                done = ExamineSingleAccessibleObjectCollection(theStack.Push, theStack.TryPop, "Nothing to pop", () => $"Stackens storlek: {theStack.Count}", done);
+            } while (!done);
+
+        }
 
         /// <summary>
         /// Reverses a user-provided string.

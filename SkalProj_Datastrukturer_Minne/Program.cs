@@ -1,9 +1,9 @@
 ﻿using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace SkalProj_Datastrukturer_Minne
 {
-    delegate bool TryRetrieve(out string? x);
     class Program
     {
         private static readonly ImmutableDictionary<char, char> counterparts =
@@ -161,47 +161,10 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
             Queue<string> theQueue = new Queue<string>();
-            bool done = false;
-            do
-            {
-                done = ExamineSingleAccessibleObjectCollection(theQueue.Enqueue, theQueue.TryDequeue, "Nothing to dequeue", () => $"Length of the queue: {theQueue.Count}", done);
-            } while (!done);
+            QueueExaminer theExaminer = new QueueExaminer(theQueue);
+            theExaminer.RunMainLoop();
 
         }
-
-        private static bool ExamineSingleAccessibleObjectCollection(Action<string> insertMethod, TryRetrieve tryRetrieveMethod, string emptyMessage, Func<string> currentStateMessage, bool done)
-        {
-            string input = StringFromConsole();
-            if (string.IsNullOrEmpty(input))
-                done = true;
-            else
-            {
-                char nav = input[0];
-                string value = input.Substring(1);
-                switch (nav)
-                {
-                    case '+':
-                        insertMethod(value);
-                        break;
-                    case '-':
-                        if (value.Length > 0)
-                            Console.WriteLine("Ignoring everything after \"-\"");
-                        string? removed;
-                        if (tryRetrieveMethod(out removed))
-                            Console.WriteLine(removed);
-                        else
-                            Console.WriteLine(emptyMessage);
-                        break;
-                    default:
-                        Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
-                        break;
-                }
-                Console.WriteLine(currentStateMessage());
-            }
-
-            return done;
-        }
-
 
         //Instruktionerna i den här metodkroppen verkar inte svara mot någonting i pdf:en.
 
@@ -216,11 +179,8 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
             Stack<string> theStack = new Stack<string>();
-            bool done = false;
-            do
-            {
-                done = ExamineSingleAccessibleObjectCollection(theStack.Push, theStack.TryPop, "Nothing to pop", () => $"Size of the stack: {theStack.Count}", done);
-            } while (!done);
+            StackExaminer theExaminer = new StackExaminer(theStack);
+            theExaminer.RunMainLoop();
 
         }
 
@@ -345,6 +305,111 @@ namespace SkalProj_Datastrukturer_Minne
         {
             return Console.ReadLine() ?? throw new Exception("The input stream seems to have closed");
         }
+        internal abstract class SingleAccessibleStringCollectionExaminer
+        {
+            protected abstract void Insert(string value);
+            protected abstract bool TryRetrieve([MaybeNullWhen(false)] out string value);
+            protected abstract string CurrentStateMessage();
+            protected abstract string EmptyMessage();
+            internal void RunMainLoop()
+            {
+                bool done = false;
+                do
+                {
+                    done = RunMainLoopOnce();
+                } while (!done);
+            }
+            private bool RunMainLoopOnce()
+            {
+                string input = StringFromConsole();
+                if (string.IsNullOrEmpty(input))
+                    return true;
+                else
+                {
+                    char nav = input[0];
+                    string value = input.Substring(1);
+                    switch (nav)
+                    {
+                        case '+':
+                            Insert(value);
+                            break;
+                        case '-':
+                            if (value.Length > 0)
+                                Console.WriteLine("Ignoring everything after \"-\"");
+                            string? removed;
+                            if (TryRetrieve(out removed))
+                                Console.WriteLine(removed);
+                            else
+                                Console.WriteLine(EmptyMessage());
+                            break;
+                        default:
+                            Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
+                            break;
+                    }
+                    Console.WriteLine(CurrentStateMessage());
+                }
+
+                return false;
+            }
+        }
+        internal class QueueExaminer : SingleAccessibleStringCollectionExaminer
+        {
+            private readonly Queue<string> theQueue;
+            private Queue<string> TheQueue { get { return theQueue; } }
+            internal QueueExaminer(Queue<string> theQueue)
+            {
+                this.theQueue = theQueue;
+            }
+            protected override string CurrentStateMessage()
+            {
+                return $"Length of the queue: {TheQueue.Count}";
+            }
+
+            protected override string EmptyMessage()
+            {
+                return "nothing to dequeue";
+            }
+
+            protected override void Insert(string value)
+            {
+                TheQueue.Enqueue(value);
+            }
+
+            protected override bool TryRetrieve([MaybeNullWhen(false)] out string value)
+            {
+                return TheQueue.TryDequeue(out value);
+            }
+        }
+        internal class StackExaminer : SingleAccessibleStringCollectionExaminer
+        {
+            private readonly Stack<string> theStack;
+            private Stack<string> TheStack { get { return theStack; } }
+            internal StackExaminer(Stack<string> theStack)
+            {
+                this.theStack = theStack;
+            }
+            protected override string CurrentStateMessage()
+            {
+                return $"Size of the stack: {TheStack.Count}";
+            }
+
+            protected override string EmptyMessage()
+            {
+                return "nothing to pop";
+            }
+
+            protected override void Insert(string value)
+            {
+                TheStack.Push(value);
+            }
+
+            protected override bool TryRetrieve([MaybeNullWhen(false)] out string value)
+            {
+                return TheStack.TryPop(out value);
+            }
+        }
+
     }
+
 }
 

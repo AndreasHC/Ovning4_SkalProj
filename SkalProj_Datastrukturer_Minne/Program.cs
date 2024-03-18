@@ -140,7 +140,7 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine("Please only enter texts beginning with \"+\" or \"-\", or an empty string to return to the main menu.");
                             break;
                     }
-                    Console.WriteLine($"Kapacitet: {theList.Capacity}{Environment.NewLine}Innehåll: {theList.Count}");
+                    Console.WriteLine($"Capacity: {theList.Capacity}{Environment.NewLine}Size: {theList.Count}");
                 }
             } while (!done);
 
@@ -164,7 +164,7 @@ namespace SkalProj_Datastrukturer_Minne
             bool done = false;
             do
             {
-                done = ExamineSingleAccessibleObjectCollection(theQueue.Enqueue, theQueue.TryDequeue, "Nothing to dequeue", () => $"Köns längd: {theQueue.Count}", done);
+                done = ExamineSingleAccessibleObjectCollection(theQueue.Enqueue, theQueue.TryDequeue, "Nothing to dequeue", () => $"Length of the queue: {theQueue.Count}", done);
             } while (!done);
 
         }
@@ -219,7 +219,7 @@ namespace SkalProj_Datastrukturer_Minne
             bool done = false;
             do
             {
-                done = ExamineSingleAccessibleObjectCollection(theStack.Push, theStack.TryPop, "Nothing to pop", () => $"Stackens storlek: {theStack.Count}", done);
+                done = ExamineSingleAccessibleObjectCollection(theStack.Push, theStack.TryPop, "Nothing to pop", () => $"Size of the stack: {theStack.Count}", done);
             } while (!done);
 
         }
@@ -276,12 +276,12 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void EvenNumber()
         {
-            Console.WriteLine("Mata in ett tal");
+            Console.WriteLine("Enter an integer");
             int inputNumber;
             if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
-                Console.WriteLine("Det där var inte ett tal");
+                Console.WriteLine("That was not an integer");
             else if (inputNumber <= 0)
-                Console.WriteLine("Det talet kan inte hanteras");
+                Console.WriteLine("That integer cannot be handled");
             else
             {
                 Console.WriteLine($"{IterativeEven(inputNumber)}");
@@ -306,12 +306,12 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void FibonacciNumber()
         {
-            Console.WriteLine("Mata in ett tal");
+            Console.WriteLine("Enter an integer");
             int inputNumber;
             if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
-                Console.WriteLine("Det där var inte ett tal");
+                Console.WriteLine("That was not an integer");
             else if (inputNumber <= 0)
-                Console.WriteLine("Det talet kan inte hanteras");
+                Console.WriteLine("That number cannot be handled");
             else
             {
                 Console.WriteLine($"{IterativeFibonacci(inputNumber)}");

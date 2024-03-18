@@ -121,7 +121,7 @@ namespace SkalProj_Datastrukturer_Minne
             bool done = false;
             do
             {
-                string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+                string input = StringFromConsole();
                 if (string.IsNullOrEmpty(input))
                     done = true;
                 else
@@ -171,7 +171,7 @@ namespace SkalProj_Datastrukturer_Minne
 
         private static bool ExamineSingleAccessibleObjectCollection(Action<string> insertMethod, TryRetrieve tryRetrieveMethod, string emptyMessage, Func<string> currentStateMessage, bool done)
         {
-            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            string input = StringFromConsole();
             if (string.IsNullOrEmpty(input))
                 done = true;
             else
@@ -230,7 +230,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void ReverseString()
         {
             Console.WriteLine("Enter a string.");
-            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            string input = StringFromConsole();
             Stack<char> stack = new Stack<char>();
             foreach (char c in input)
                 stack.Push(c);
@@ -243,7 +243,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void CheckParanthesis()
         {
             Console.WriteLine("Enter a string.");
-            string input = Console.ReadLine() ?? throw new Exception("The input stream seems to have closed.");
+            string input = StringFromConsole();
             Stack<char> stack = new Stack<char>();
             bool mismatchFound = false;
             foreach (char c in input)
@@ -278,7 +278,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             Console.WriteLine("Enter an integer");
             int inputNumber;
-            if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
+            if (!int.TryParse(StringFromConsole(), out inputNumber))
                 Console.WriteLine("That was not an integer");
             else if (inputNumber <= 0)
                 Console.WriteLine("That integer cannot be handled");
@@ -308,7 +308,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             Console.WriteLine("Enter an integer");
             int inputNumber;
-            if (!int.TryParse(Console.ReadLine() ?? throw new Exception("The input stream seems to have closed."), out inputNumber))
+            if (!int.TryParse(StringFromConsole(), out inputNumber))
                 Console.WriteLine("That was not an integer");
             else if (inputNumber <= 0)
                 Console.WriteLine("That number cannot be handled");
@@ -339,6 +339,11 @@ namespace SkalProj_Datastrukturer_Minne
                 previous = tmp;
             }
             return result;
+        }
+        // Presumably, input streams closing is not really a thing to worry about when running the program directly in a console?
+        static string StringFromConsole()
+        {
+            return Console.ReadLine() ?? throw new Exception("The input stream seems to have closed");
         }
     }
 }
